@@ -1,4 +1,4 @@
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, getServerSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
@@ -43,7 +43,7 @@ export const authOptions = {
         id: dbUser.id,
         name: dbUser.name,
         email: dbUser.email,
-        picture: dbUser.image,
+        picture: null,
       };
     },
     async session({ token, session }) {
@@ -61,3 +61,6 @@ export const authOptions = {
     },
   },
 } satisfies NextAuthOptions;
+
+
+export const getAuthSession = () => getServerSession(authOptions);
