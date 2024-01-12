@@ -1,30 +1,34 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
-import { User } from "next-auth";
-import Image from "next/image";
-import { Icons } from "./ui/Icons";
+import { User } from '@prisma/client'
+import { AvatarProps } from '@radix-ui/react-avatar'
 
-interface UserAvatarProps {
-  user: Pick<User, "name" | "image">;
+
+import { Avatar, AvatarFallback } from '@/components/ui/Avatar'
+import Image from 'next/image'
+import { Icons } from './ui/Icons'
+
+interface UserAvatarProps extends AvatarProps {
+  user: Pick<User, 'image' | 'name'>
 }
 
-const UserAvatar= ({ user }:UserAvatarProps) => {
+export function UserAvatar({ user, ...props }: UserAvatarProps) {
   return (
-    <Avatar>
+    <Avatar {...props}>
       {user.image ? (
-        <div>
+        <div className='relative aspect-square h-full w-full'>
           <Image
             fill
             src={user.image}
-            alt="profile picture"
-            referrerPolicy="no-referrer"
+            alt='profile picture'
+            referrerPolicy='no-referrer'
           />
         </div>
       ) : (
         <AvatarFallback>
-          <span className="sr-only">{user?.name}</span>
-          <Icons.user className="h-4 w-4"/>
+          <Image src="/defaultpfp.png" width={32}
+      height={32} alt="Profile picture"/>
+          
         </AvatarFallback>
       )}
     </Avatar>
-  );
-};
+  )
+}

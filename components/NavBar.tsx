@@ -1,11 +1,54 @@
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 import Link from "next/link";
+import { Icons } from "./ui/Icons";
+import { UserAvatar } from "./UserAvatar";
 
-export default function NavBar() {
+export default async function NavBar() {
   //make async so we can get session for user
+  const session = await getServerSession(authOptions);
   return (
-    <div className="fixed top-0 inset-x-0 h-fit bg-zinc-100 border-b border-zinc-300 z-[10] py-2">
-      <div className="container max-w-7xl h-full mx-auto flex items-center justify-between gap-2 ">
-      <Link href='/'>netly</Link>
+    <div className="flex ">
+      <div className="flex">
+        <div className="text-xl space-x-4">
+          {" "}
+          {/* Align "netly" to the left */}
+          <Link href="/">netly</Link>
+        </div>
+
+
+        <Link href='/groups'>
+          <Icons.groups />
+          <p className="">Groups</p>
+        </Link>
+
+        <Link href="/events">
+          <Icons.events />
+          <p className="">Events</p>
+        </Link>
+      </div>
+
+      <div className="flex">
+        <div className="">
+          <Icons.notifs />
+          <p className="">Notifications</p>
+        </div>
+        <Link href="/inbox">
+          <Icons.inbox />
+          <p className="">Inbox</p>
+        </Link>
+        {/* Profile */}
+        <Link href="/profile">
+          <UserAvatar
+            user={{
+              name: session?.user?.name || null,
+              image: session?.user?.image || null,
+            }}
+            className="h-8 w-8"
+          />
+          <p className="">Profile</p>
+        </Link>
+
       </div>
     </div>
   );
