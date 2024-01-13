@@ -17,7 +17,13 @@ module.exports = {
       },
     },
     extend: {
+      spacing: {
+        '18': '4.5rem', // 72px, adjust as needed
+        '-2px': '-2px',
+        '-1px': '-1px',
+      },
       colors: {
+        'custom-color': '#ECEFF7',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

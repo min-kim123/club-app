@@ -9,46 +9,45 @@ export default async function NavBar() {
   const session = await getServerSession(authOptions);
   return (
     <div className="flex ">
-      <div className="flex">
-        <div className="text-xl space-x-4">
+      <div className="flex items-end ">
+        <div className="text-xl space-x-4 ">
           {" "}
           {/* Align "netly" to the left */}
           <Link href="/">netly</Link>
         </div>
 
-
-        <Link href='/groups'>
+        <Link href="/groups" className="flex flex-col items-center">
           <Icons.groups />
-          <p className="">Groups</p>
+          <p className="text-xs">Groups</p>
         </Link>
 
-        <Link href="/events">
+        <Link href="/events" className="flex flex-col items-center">
           <Icons.events />
-          <p className="">Events</p>
+          <p className="text-xs">Events</p>
         </Link>
       </div>
 
-      <div className="flex">
-        <div className="">
-          <Icons.notifs />
-          <p className="">Notifications</p>
+      <div className="flex items-end">
+        <div className="relative flex flex-col items-center">
+          <Icons.notifs className="absolute  "  style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} />
+          <p className="text-xs">Notifications</p>
         </div>
-        <Link href="/inbox">
+
+        <Link href="/inbox" className="flex flex-col items-center mt-2px">
           <Icons.inbox />
-          <p className="">Inbox</p>
+          <p className="text-xs">Inbox</p>
         </Link>
         {/* Profile */}
-        <Link href="/profile">
+        <Link href="/profile" className="flex flex-col items-center">
           <UserAvatar
             user={{
               name: session?.user?.name || null,
               image: session?.user?.image || null,
             }}
-            className="h-8 w-8"
+            className="h-6 w-6"
           />
-          <p className="">Profile</p>
+          <p className="text-xs">Profile</p>
         </Link>
-
       </div>
     </div>
   );

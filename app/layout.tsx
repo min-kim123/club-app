@@ -23,16 +23,15 @@ export default function RootLayout({
       lang="en"
       className={cn("bg-white text-slate-900 antialiased", inter.className)}
     >
-      <body className="min-h-screen  bg-blue-100 antialiased fixed w-full">
+      <body className="min-h-screen bg-custom-color antialiased fixed w-full">
         {/*typescript doesn't really know react server components (has problem with the async behavior of navbar so below comment is needed) */}
         {/* @ts-expect-error Server Component */}
         <NavBar />
-        <SideNav/>
-        <div className="overflow-y-auto max-h-[calc(100vh)] top-0 mt-10  mx-auto h-full  right-0 left-0  rounded-tl-lg bg-white ml-16 fixed">
+        <SideNav />
+        <div className="overflow-y-auto max-h-[calc(100vh)] top-0 mt-10  mx-auto h-full  right-0 left-0  rounded-tl-lg bg-white ml-18 fixed">
           {children}
         </div>
         <Toaster />
-       
       </body>
     </html>
   );
