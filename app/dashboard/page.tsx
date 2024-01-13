@@ -7,12 +7,19 @@ export default async function Page() {
   console.log("Session data:", session);
   return (
     <div>
-      <LogOutButton/>
+      <div className="rounded-tl-lg sticky top-0 w-full bg-white shadow py-2 px-6 text-xl">
+        Dashboard
+      </div>
+      <div className="flex flex-col items-start pt-4 space-y-2 px-6">
+
+         <LogOutButton/>
       <div>
         {session.user.name}
         {session.user.email}
 
       </div>
+      </div>
+     
     </div>
   )
 }

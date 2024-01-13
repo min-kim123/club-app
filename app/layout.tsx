@@ -28,7 +28,7 @@ export default function RootLayout({
         {/* @ts-expect-error Server Component */}
         <NavBar />
         <SideNav/>
-        <div className=" top-0 mt-10  mx-auto h-full pt-10 right-0 left-0  rounded-lg bg-white ml-16 fixed">
+        <div className="overflow-y-auto max-h-[calc(100vh)] top-0 mt-10  mx-auto h-full  right-0 left-0  rounded-tl-lg bg-white ml-16 fixed">
           {children}
         </div>
         <Toaster />
