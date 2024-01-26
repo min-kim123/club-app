@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { Icons } from './ui/Icons'
 
 interface UserAvatarProps extends AvatarProps {
-  user: Pick<User, 'image' | 'name'>
+  user: Pick<User, 'image' | 'firstName' | 'lastName'>
 }
 
 export function UserAvatar({ user, ...props }: UserAvatarProps) {

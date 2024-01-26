@@ -38,7 +38,7 @@ export default async function NavBar() {
           <p className="text-xs">Inbox</p>
         </Link>
         {/* Profile */}
-        <Link href="/profile" className="flex flex-col items-center">
+        {/* <Link href="/profile" className="flex flex-col items-center">
           <UserAvatar
             user={{
               name: session?.user?.name || null,
@@ -47,7 +47,7 @@ export default async function NavBar() {
             className="h-6 w-6"
           />
           <p className="text-xs">Profile</p>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

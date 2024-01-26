@@ -14,7 +14,7 @@ export default async function Page() {
 
          <LogOutButton/>
       <div>
-      {session?.user.name}
+      {/* {session?.user.name} */}
 
         {session?.user.email}
         {session?.user.image}
