@@ -1,5 +1,6 @@
 import Link from "next/link";
 import UserAuthForm from "./UserAuthForm";
+import AuthFirebase from "./AuthFirebase";
 
 export default function LogIn() {
   return (
@@ -9,7 +10,8 @@ export default function LogIn() {
         <h1 className='text-2xl font-semibold tracking-tight'>Sign In</h1>
 
       </div>
-      <UserAuthForm />
+      <AuthFirebase/>
+      {/* <UserAuthForm /> */}
       <p className='px-8 text-center text-sm text-muted-foreground'>
         Don't have an account?{' '}
         <Link

@@ -1,6 +1,7 @@
 
 import Link from "next/link";
 import UserAuthForm from "./UserAuthForm";
+import AuthFirebase from "./AuthFirebase";
 
 const SignUp = () => {
   return (
@@ -10,7 +11,8 @@ const SignUp = () => {
         <h1 className='text-2xl font-semibold tracking-tight'>Sign Up</h1>
 
       </div>
-      <UserAuthForm />
+      <AuthFirebase/>
+      {/* <UserAuthForm /> */}
       <p className='px-8 text-center text-sm text-muted-foreground'>
         Already have an account?{' '}
         <Link

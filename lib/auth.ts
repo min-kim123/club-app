@@ -4,20 +4,20 @@ import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
 
-function CustomPrismaAdapter(p: typeof prisma) {
-  return {
-    ...PrismaAdapter(p),
-    createUser: (data) => {
-      return p.user.create({
-        data: {
-          ...data,
+// function CustomPrismaAdapter(p: typeof prisma) {
+//   return {
+//     ...PrismaAdapter(p),
+//     createUser: (data) => {
+//       return p.user.create({
+//         data: {
+//           ...data,
           
-        }
-      })
-      const username = use
-    }
-  }
-}
+//         }
+//       })
+//       const username = use
+//     }
+//   }
+// }
 
 import prisma from "./db";
 export const authOptions = {

@@ -5,3 +5,4 @@
 /.next/
 .next
 /out/
+/firebase/config.js

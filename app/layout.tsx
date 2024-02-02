@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/Toaster";
 import { cn } from "@/lib/utils";
 import NavBar from "@/components/NavBar";
 import SideNav from "@/components/SideNav";
+import { AuthContextProvider} from '@/firebase/context/AuthContext'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,8 @@ export default function RootLayout({
       lang="en"
       className={cn("bg-white text-slate-900 antialiased", inter.className)}
     >
+      <AuthContextProvider>
+
       <body className="min-h-screen bg-custom-color antialiased fixed w-full">
         {/*typescript doesn't really know react server components (has problem with the async behavior of navbar so below comment is needed) */}
         {/* @ts-expect-error Server Component */}
@@ -33,6 +36,7 @@ export default function RootLayout({
         </div>
         <Toaster />
       </body>
+      </AuthContextProvider>
     </html>
   );
 }
