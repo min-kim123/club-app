@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/Toaster";
 import { cn } from "@/lib/utils";
 import NavBar from "@/components/NavBar";
 import SideNav from "@/components/SideNav";
-import { AuthContextProvider} from '@/firebase/context/AuthContext'
+import { AuthContextProvider } from "@/firebase/context/AuthContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,19 +24,21 @@ export default function RootLayout({
       lang="en"
       className={cn("bg-white text-slate-900 antialiased", inter.className)}
     >
-      <AuthContextProvider>
-
       <body className="min-h-screen bg-custom-color antialiased fixed w-full">
-        {/*typescript doesn't really know react server components (has problem with the async behavior of navbar so below comment is needed) */}
-        {/* @ts-expect-error Server Component */}
-        <NavBar />
-        <SideNav />
-        <div className="overflow-y-auto max-h-[calc(100vh)] top-0 mt-10  mx-auto h-full  right-0 left-0  rounded-tl-lg bg-white ml-18 fixed">
-          {children}
-        </div>
-        <Toaster />
+        <AuthContextProvider>
+          {/*typescript doesn't really know react server components (has problem with the async behavior of navbar so below comment is needed) */}
+          {/* @ts-expect-error Server Component */}
+          <NavBar />
+          <SideNav />
+          <div className="overflow-y-auto max-h-[calc(100vh)] top-0 mt-10  mx-auto h-full  right-0 left-0  rounded-tl-lg bg-white ml-18 fixed">
+            {children}
+          </div>
+          <Toaster />
+        </AuthContextProvider>
       </body>
-      </AuthContextProvider>
     </html>
   );
 }
+
+//could i make it work by just not doing the provider? could i send auth to the components where it's needed?
+//i think i can use firebase auth!

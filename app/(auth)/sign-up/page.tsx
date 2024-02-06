@@ -1,11 +1,12 @@
 import SignUp from "@/components/SignUp";
+import { useAuth } from "@/firebase/context/AuthContext";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 export default async function Page() {
-  const session = await getServerSession(authOptions);
-  if (session) {
+  const { user } = useAuth();
+  if (user) {
     return redirect('/dashboard');
   }
   return (
