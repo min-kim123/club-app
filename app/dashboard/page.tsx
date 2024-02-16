@@ -1,13 +1,13 @@
 import LogOutButton from "@/components/LogOutButton";
-import { useAuth } from "@/firebase/context/AuthContext";
+// import { useAuth } from "@/firebase/context/AuthContext";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 
 export default async function Page() {
   // const session = await getServerSession(authOptions);
-  const { user } = useAuth();
-  console.log(user);
-  
+  // const { user } = useAuth();
+  // console.log(user);
+
   // console.log("Session data:", session);
   return (
     <div>
@@ -19,7 +19,7 @@ export default async function Page() {
          <LogOutButton/>
       <div>
       {/* {session?.user.name} */}
-      {user}
+      {/* {user} */}
 
         {/* {session?.user.email} */}
         {/* {session?.user.image} */}

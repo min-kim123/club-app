@@ -1,11 +1,11 @@
+import {createMiddlewareClient} from "@supabase/auth-helpers-nextjs"
 import {NextResponse} from "next/server";
 
-const isLoggedIn: boolean = false;
+import type {NextRequest} from "next/server"
 
-export function middleware(request: Request) {
-  if (isLoggedIn) {
-    return NextResponse.redirect(new URL('/', request.url))
-  }
-  return NextResponse.next()
+export async function middleware(req: NextRequest) {
+  const res = NextResponse.next();
+  const supabase = createMiddlewareClient({req,res});
+  await supabase.auth.getSession();//refreshes session if expired
+  return res;//returns updated cookie w/ fresh session from supabase
 }
-
