@@ -16,7 +16,7 @@ export default async function Page() {
       </div>
       <div className="flex flex-col items-start pt-4 space-y-2 px-6">
 
-         <LogOutButton/>
+         {/* <LogOutButton/> */}
       <div>
       {/* {session?.user.name} */}
       {/* {user} */}

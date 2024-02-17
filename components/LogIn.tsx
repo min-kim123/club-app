@@ -1,11 +1,12 @@
 import Link from "next/link";
 import UserAuthForm from "./UserAuthForm";
-import AuthFirebase from "./AuthFirebase";
+// import AuthFirebase from "./AuthFirebase";
 import { cookies } from "next/headers";
 import { SupabaseAuthClient } from "@supabase/supabase-js/dist/module/lib/SupabaseAuthClient";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { redirect } from "next/navigation";
 import AuthButtonClient from "./AuthButtonClient";
+import AuthButtonServer from "./AuthButtonServer";
 
 export default async function LogIn() {
   const supabase = createServerComponentClient<Database>({ cookies });
@@ -25,8 +26,8 @@ export default async function LogIn() {
       {/* <AuthFirebase/> */}
       {/* <UserAuthForm /> */}
 
-      <AuthButtonClient session={session} />
-      <p className="px-8 text-center text-sm text-muted-foreground">
+      <AuthButtonServer />
+      {/* <p className="px-8 text-center text-sm text-muted-foreground">
         Don't have an account?{" "}
         <Link
           href="/sign-up"
@@ -34,7 +35,7 @@ export default async function LogIn() {
         >
           Sign up
         </Link>
-      </p>
+      </p> */}
     </div>
   );
 }

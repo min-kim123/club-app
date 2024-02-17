@@ -22,9 +22,9 @@ export default function AuthButtonClient({
   const handleSignIn = async () => {
     await supabase.auth.signInWithOAuth({
       provider: "google",
-      // options: {
-      //   redirectTo: 'http://localhost:3000/auth/callback'
-      // }
+      options: {
+        redirectTo: 'http://localhost:3000/auth/callback'
+      }
     });
 
   };
