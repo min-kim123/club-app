@@ -19,6 +19,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  
   return (
     <html
       lang="en"
@@ -40,5 +41,3 @@ export default function RootLayout({
   );
 }
 
-//could i make it work by just not doing the provider? could i send auth to the components where it's needed?
-//i think i can use firebase auth!

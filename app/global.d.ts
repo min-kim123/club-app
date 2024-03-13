@@ -6,7 +6,7 @@ type Profile = Database["public"]["Tables"]["profiles"]["Row"];
 declare global {
   type Database = DB;
   type GroupWithAuthor = Group & {
-    author: Profile;
+    profiles: Profile;
     likes: number;
     user_has_liked_tweet: boolean;
   };

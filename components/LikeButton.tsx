@@ -4,7 +4,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 
 
-export default function LikeButton({ groups }: {groups: GroupWithAuthor}) {
+export default function LikeButton({ group }: {group: GroupWithAuthor}) {
   const router = useRouter();
   // console.log(group);
 

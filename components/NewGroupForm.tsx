@@ -1,6 +1,8 @@
-import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
+import { User, createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-export default function NewGroupForm() {
+import Image from "next/image";
+
+export default function NewGroupForm({ user }: { user: User }) {
   const addGroup = async (formData: FormData) => {
     "use server";
     const name = String(formData.get("name"));
@@ -8,10 +10,9 @@ export default function NewGroupForm() {
 
     const {
       data: { user },
-    } = await supabase.auth.getUser();//fetch currently logged in user
+    } = await supabase.auth.getUser(); //fetch currently logged in user
     if (user) {
-      await supabase.from("groups").insert({ name, user_id: user.id});
-
+      await supabase.from("groups").insert({ name, user_id: user.id });
     }
   };
   return (
