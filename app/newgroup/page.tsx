@@ -5,6 +5,7 @@ import { Icons } from "@/components/ui/Icons";
 import { Input } from "@/components/ui/Input";
 import { Label } from "@/components/ui/Label";
 import { Textarea } from "@/components/ui/Textarea";
+import NewGroupForm from "@/components/NewGroupForm";
 
 export default function Page() {
   const [textFields, setTextFields] = useState([]);
@@ -16,6 +17,8 @@ export default function Page() {
 
   return (
     <div>
+      {/* <NewGroupForm user={session!.user} /> */}
+      {/* <NewGroupForm user={session!.user} /> */}
       <div className="rounded-tl-lg sticky top-0 w-full bg-white shadow py-2 px-6 text-xl">
         New Group Application
       </div>

@@ -12,7 +12,13 @@ export default function NewGroupForm({ user }: { user: User }) {
       data: { user },
     } = await supabase.auth.getUser(); //fetch currently logged in user
     if (user) {
-      await supabase.from("groups").insert({ name, user_id: user.id });
+      const {data: groupData} = await supabase.from("groups").insert({name}).select().single();
+      console.log("groupdata: " ,groupData)
+      console.log(groupData.id)
+      // await supabase.from("groups_users").insert({group_id: groupData.id, user_id: user.id});
+      const { error: joinTableError } = await supabase
+      .from("groups_users")
+      .insert({ group_id: groupData.id, user_id: user.id });
     }
   };
   return (

@@ -13,12 +13,20 @@ import {
 } from "@supabase/auth-helpers-nextjs";
 import { Avatar, AvatarImage } from "./ui/Avatar";
 
-export default async function NavBar({ user }: { user: User }) {
+export default async function NavBar() {
   const supabase = createServerComponentClient<Database>({ cookies });
 
   const {
     data: { session },
   } = await supabase.auth.getSession();
+  //get profile account associated w user.id
+  const { data: userProfile } = await supabase
+    .from("profiles")
+    .select("*") // selects all columns, adjust if needed
+    .eq("id", session!.user.id)
+    .single();
+
+  const schoolPath = userProfile?.school_slug
   //get user's avatar url
   const { data } = await supabase.from("profiles").select("*, profiles(*)");
 
@@ -32,8 +40,8 @@ export default async function NavBar({ user }: { user: User }) {
           {/* Align "netly" to the left */}
           <Link href="/">netly</Link>
         </div>
-
-        <Link href="/groups" className="flex flex-col items-center ml-6">
+        
+        <Link href={`${schoolPath}/groups`} className="flex flex-col items-center ml-6">
           <Icons.groups />
           <p className="text-xs">Groups</p>
         </Link>
@@ -59,35 +67,33 @@ export default async function NavBar({ user }: { user: User }) {
             <p className="text-xs">Notifications</p>
           </div>
           <div className="ml-3">
-          <Link href="/inbox" className="flex flex-col items-center mt-2px">
-            <Icons.inbox />
-            <p className="text-xs">Inbox</p>
-          </Link>
+            <Link href="/inbox" className="flex flex-col items-center mt-2px">
+              <Icons.inbox />
+              <p className="text-xs">Inbox</p>
+            </Link>
           </div>
           {/* Profile */}
-          <div className="ml-5"> 
-<Link href="/profile" className="flex flex-col items-center">
-            <Avatar>
-              <AvatarImage
-                src={session!.user.user_metadata.avatar_url}
-                alt="user avatar"
-              />
-            </Avatar>
+          <div className="ml-5">
+            <Link href="/profile" className="flex flex-col items-center">
+              <Avatar>
+                <AvatarImage
+                  src={session!.user.user_metadata.avatar_url}
+                  alt="user avatar"
+                />
+              </Avatar>
 
-            <p className="text-xs">Profile</p>
-          </Link>
-
+              <p className="text-xs">Profile</p>
+            </Link>
           </div>
-          
         </div>
       ) : (
         <div>
           {/* link to log in page*/}
           <Link
-            href="/login"
-            className="hover:text-brand text-sm underline underline-offset-4"
+            href="/sign-in"
+            className="hover:text-brand text-md underline underline-offset-4 mr-2"
           >
-            Log in
+            Sign in
           </Link>
         </div>
       )}

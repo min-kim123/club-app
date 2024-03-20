@@ -19,7 +19,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  
   return (
     <html
       lang="en"
@@ -27,17 +26,16 @@ export default function RootLayout({
     >
       <body className="min-h-screen bg-custom-color antialiased fixed w-full">
         {/* <AuthContextProvider> */}
-          {/*typescript doesn't really know react server components (has problem with the async behavior of navbar so below comment is needed) */}
-          {/* @ts-expect-error Server Component */}
-          <NavBar />
-          <SideNav />
-          <div className="overflow-y-auto max-h-[calc(100vh)] top-0 mt-10  mx-auto h-full  right-0 left-0  rounded-tl-lg bg-white ml-18 fixed">
-            {children}
-          </div>
-          <Toaster />
+        {/*typescript doesn't really know react server components (has problem with the async behavior of navbar so below comment is needed) */}
+        {/* @ts-expect-error Server Component */}
+        <NavBar />
+        <SideNav />
+        <div className="overflow-y-auto max-h-[calc(100vh)] top-0 mt-10  mx-auto h-full  right-0 left-0  rounded-tl-lg bg-white ml-18 fixed">
+          {children}
+        </div>
+        <Toaster />
         {/* </AuthContextProvider> */}
       </body>
     </html>
   );
 }
-

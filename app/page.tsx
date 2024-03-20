@@ -23,10 +23,7 @@ export default async function Home() {
     data: { session },
   } = await supabase.auth.getSession();
 
-
-
   const { data: tweets } = await supabase.from("groups").select();
-
 
   return (
     <main>
@@ -34,7 +31,6 @@ export default async function Home() {
       {/* {user?.displayName? (<button onClick={handleSignOut}>Logout</button>):(<Link href='/signin'>Sign in</Link>)} */}
       {/* {session ? <h1>You are logged in</h1> : <h1>please log in </h1>} */}
       {/* <LogIn /> */}
-
     </main>
   );
 }
