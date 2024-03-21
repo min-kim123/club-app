@@ -6,33 +6,36 @@ import { cookies } from "next/headers";
 
 interface PageProps {
   params: {
-    schoolName: string;
+    universitySlug: string;
   };
 }
 export default async function Page({ params }: PageProps) {
-  const schoolName = params.schoolName
+  const universitySlug = params.universitySlug
   const supabase = createServerComponentClient<Database>({ cookies });
 
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
+  //fetch the university slug
+
 
   const { data } = await supabase
   .from("groups")
-  .select("*, profiles(*), likes(user_id)");
+  .select("*").eq("university_slug", universitySlug);
+  console.log("data",data)
 
-const groups =
-  data?.map((group) => ({
-    ...group,
-    profiles: Array.isArray(group.profiles)
-      ? group.profiles[0]
-      : group.profiles,
-    user_has_liked_tweet: !!group.likes.find(
-      (like) => like.user_id === session?.user.id
-    ),
-    likes: group.likes.length,
-  })) ?? [];
+// const groups =
+//   data?.map((group) => ({
+//     ...group,
+//     profiles: Array.isArray(group.profiles)
+//       ? group.profiles[0]
+//       : group.profiles,
+//     user_has_liked_tweet: !!group.likes.find(
+//       (like) => like.user_id === session?.user.id
+//     ),
+//     likes: group.likes.length,
+//   })) ?? [];
 
   
 
@@ -45,7 +48,6 @@ const groups =
       {session ? (
         <div>
           <NewGroupForm user={session!.user} />
-          <div>a{schoolName}</div>
         </div>
       ) : (
         <div>
@@ -54,7 +56,7 @@ const groups =
       )}
 
       <div className="flex flex-col items-start pt-4 space-y-2 px-6">
-        <GroupsFeed groups={groups} />
+        <GroupsFeed groups={data} />
       </div>
     </div>
   );

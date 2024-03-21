@@ -12,26 +12,41 @@ export type Database = {
       events: {
         Row: {
           created_at: string
-          hosts: string
-          id: string
-          title: string
+          date: string
+          description: string | null
+          group_id: string
+          id: number
+          location: string
+          name: string
+          num_additional_hosts: number | null
+          time: string
         }
         Insert: {
           created_at?: string
-          hosts?: string
-          id?: string
-          title: string
+          date: string
+          description?: string | null
+          group_id?: string
+          id?: number
+          location: string
+          name: string
+          num_additional_hosts?: number | null
+          time: string
         }
         Update: {
           created_at?: string
-          hosts?: string
-          id?: string
-          title?: string
+          date?: string
+          description?: string | null
+          group_id?: string
+          id?: number
+          location?: string
+          name?: string
+          num_additional_hosts?: number | null
+          time?: string
         }
         Relationships: [
           {
-            foreignKeyName: "public_events_host_ids_fkey"
-            columns: ["hosts"]
+            foreignKeyName: "public_eventsm_group_id_fkey"
+            columns: ["group_id"]
             isOneToOne: false
             referencedRelation: "groups"
             referencedColumns: ["id"]
@@ -41,21 +56,27 @@ export type Database = {
       groups: {
         Row: {
           created_at: string
+          description: string | null
           id: string
+          image: string | null
           name: string
           school_slug: string | null
           slug: string | null
         }
         Insert: {
           created_at?: string
+          description?: string | null
           id?: string
+          image?: string | null
           name: string
           school_slug?: string | null
           slug?: string | null
         }
         Update: {
           created_at?: string
+          description?: string | null
           id?: string
+          image?: string | null
           name?: string
           school_slug?: string | null
           slug?: string | null
@@ -65,7 +86,7 @@ export type Database = {
             foreignKeyName: "public_groups_school_slug_fkey"
             columns: ["school_slug"]
             isOneToOne: false
-            referencedRelation: "schools"
+            referencedRelation: "universities"
             referencedColumns: ["slug"]
           },
         ]
@@ -173,12 +194,12 @@ export type Database = {
             foreignKeyName: "public_profiles_school_slug_fkey"
             columns: ["school_slug"]
             isOneToOne: false
-            referencedRelation: "schools"
+            referencedRelation: "universities"
             referencedColumns: ["slug"]
           },
         ]
       }
-      schools: {
+      universities: {
         Row: {
           city: string
           latitude: number
@@ -230,7 +251,7 @@ export type Database = {
       }
     }
     Enums: {
-      [_ in never]: never
+      school_type: "CAS" | "Tandon" | "Stern" | "Steinhardt" | "Gallatin"
     }
     CompositeTypes: {
       [_ in never]: never

@@ -41,12 +41,12 @@ export default async function NavBar() {
           <Link href="/">netly</Link>
         </div>
         
-        <Link href={`${schoolPath}/groups`} className="flex flex-col items-center ml-6">
+        <Link href={`/${schoolPath}/groups`} className="flex flex-col items-center ml-6">
           <Icons.groups />
           <p className="text-xs">Groups</p>
         </Link>
 
-        <Link href="/events" className="flex flex-col items-center ml-5">
+        <Link href={`/${schoolPath}/events`} className="flex flex-col items-center ml-5">
           <Icons.events />
           <p className="text-xs">Events</p>
         </Link>
@@ -75,7 +75,7 @@ export default async function NavBar() {
           {/* Profile */}
           <div className="ml-5">
             <Link href="/profile" className="flex flex-col items-center">
-              <Avatar>
+              <Avatar circle={true} height={"10"} width={"10"} className="w-5">
                 <AvatarImage
                   src={session!.user.user_metadata.avatar_url}
                   alt="user avatar"

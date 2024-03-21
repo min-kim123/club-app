@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import LikeButton from "./LikeButton";
 import { table } from "console";
@@ -6,18 +6,13 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import GroupsFeedCard from "./GroupsFeedCard";
 
-export default function Groups({ groups }: { groups: GroupWithAuthor[] }) {
+export default function Groups({ groups }) {
   const router = useRouter();
-
 
   const supabase = createClientComponentClient();
 
-  
-  
-
-
   useEffect(() => {
-    console.log("asdf")
+    console.log("asdf");
     const channel = supabase
       .channel("realtime tweets")
       .on(
@@ -28,8 +23,8 @@ export default function Groups({ groups }: { groups: GroupWithAuthor[] }) {
           table: "groups",
         },
         (payload) => {
-          console.log("sdfghjhgdfsds")
-          console.log(payload)
+          console.log("sdfghjhgdfsds");
+          console.log(payload);
           router.refresh();
         }
       )
@@ -41,7 +36,7 @@ export default function Groups({ groups }: { groups: GroupWithAuthor[] }) {
   }, [supabase, router]);
 
   return groups?.map((group) => (
-    <GroupsFeedCard key={group.id} group={group}/>
+    <GroupsFeedCard key={group.id} group={group} />
     // <div key={group.id}>
     //   <div>skdfakldf</div>
     //   <p>
