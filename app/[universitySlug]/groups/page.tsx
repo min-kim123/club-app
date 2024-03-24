@@ -23,6 +23,7 @@ export default async function Page({ params }: PageProps) {
   const { data } = await supabase
   .from("groups")
   .select("*").eq("university_slug", universitySlug);
+  
   console.log("data",data)
 
 // const groups =

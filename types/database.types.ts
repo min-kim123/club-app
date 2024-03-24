@@ -15,7 +15,7 @@ export type Database = {
           date: string
           description: string | null
           group_id: string
-          id: number
+          id: string
           location: string
           name: string
           num_additional_hosts: number | null
@@ -26,7 +26,7 @@ export type Database = {
           date: string
           description?: string | null
           group_id?: string
-          id?: number
+          id?: string
           location: string
           name: string
           num_additional_hosts?: number | null
@@ -37,7 +37,7 @@ export type Database = {
           date?: string
           description?: string | null
           group_id?: string
-          id?: number
+          id?: string
           location?: string
           name?: string
           num_additional_hosts?: number | null
@@ -60,8 +60,8 @@ export type Database = {
           id: string
           image: string | null
           name: string
-          school_slug: string | null
           slug: string | null
+          university_slug: string
         }
         Insert: {
           created_at?: string
@@ -69,8 +69,8 @@ export type Database = {
           id?: string
           image?: string | null
           name: string
-          school_slug?: string | null
           slug?: string | null
+          university_slug: string
         }
         Update: {
           created_at?: string
@@ -78,30 +78,63 @@ export type Database = {
           id?: string
           image?: string | null
           name?: string
-          school_slug?: string | null
           slug?: string | null
+          university_slug?: string
         }
         Relationships: [
           {
             foreignKeyName: "public_groups_school_slug_fkey"
-            columns: ["school_slug"]
+            columns: ["university_slug"]
             isOneToOne: false
             referencedRelation: "universities"
             referencedColumns: ["slug"]
           },
         ]
       }
+      groups_events: {
+        Row: {
+          event_id: string
+          group_id: string
+        }
+        Insert: {
+          event_id: string
+          group_id: string
+        }
+        Update: {
+          event_id?: string
+          group_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "groups_profiles_events_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "groups_profiles_groups_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       groups_users: {
         Row: {
           group_id: string
+          position: string | null
           user_id: string
         }
         Insert: {
           group_id: string
+          position?: string | null
           user_id: string
         }
         Update: {
           group_id?: string
+          position?: string | null
           user_id?: string
         }
         Relationships: [
@@ -199,6 +232,41 @@ export type Database = {
           },
         ]
       }
+      sections: {
+        Row: {
+          created_at: string
+          description: string | null
+          group_id: string
+          id: string
+          name: string
+          time: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          group_id?: string
+          id?: string
+          name: string
+          time?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          group_id?: string
+          id?: string
+          name?: string
+          time?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_sections_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       universities: {
         Row: {
           city: string
@@ -251,6 +319,14 @@ export type Database = {
       }
     }
     Enums: {
+      day_of_week:
+        | "Monday"
+        | "Tuesday"
+        | "Wednesday"
+        | "Thursday"
+        | "Friday"
+        | "Saturday"
+        | "Sunday"
       school_type: "CAS" | "Tandon" | "Stern" | "Steinhardt" | "Gallatin"
     }
     CompositeTypes: {
