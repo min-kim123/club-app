@@ -28,24 +28,24 @@ export default async function Page({ params }: PageProps) {
   console.log(boardData);
 
   //fetch the user profiles
-  let profilesData = null;
+  let usersData = null;
   if (boardData && boardData.length > 0) {
     console.log("not 0");
     const userIds = boardData.map((row) => row.user_id);
     const response = await supabase
-      .from("profiles")
+      .from("users")
       .select("*")
       .in("id", userIds);
-    profilesData = response.data; // Assign the data to profilesData
+    usersData = response.data; // Assign the data to profilesData
     if (response.error) {
-      console.error("Error fetching profiles:", response.error);
+      console.error("Error fetching users:", response.error);
     }
   }
 
   return (
     <div>
-      {profilesData ? (
-        profilesData.map((profile) => (
+      {usersData ? (
+        usersData.map((profile) => (
           <div key={profile.id}>
             <Card className="w-40 h-52">
               <Avatar circle={true} height={"10"} width={"10"} className="w-5">

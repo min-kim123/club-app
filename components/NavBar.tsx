@@ -24,7 +24,7 @@ export default async function NavBar() {
   if (session) {
     console.log("session");
     const { data: userProfile } = await supabase
-      .from("profiles")
+      .from("users")
       .select("*") // selects all columns, adjust if needed
       .eq("id", session!.user.id)
       .single();
@@ -37,7 +37,7 @@ export default async function NavBar() {
   //
 
   //get user's avatar url
-  const { data } = await supabase.from("profiles").select("*, profiles(*)");
+  const { data } = await supabase.from("users").select("*, users(*)");
 
   //make async so we can get session for user
   // const session = await getServerSession(authOptions);

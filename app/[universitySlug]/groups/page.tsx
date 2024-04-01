@@ -3,6 +3,7 @@ import LikeButton from "@/components/LikeButton";
 import NewGroupForm from "@/components/NewGroupForm";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
+import { notFound } from "next/navigation";
 
 interface PageProps {
   params: {
@@ -25,6 +26,10 @@ export default async function Page({ params }: PageProps) {
   .select("*").eq("university_slug", universitySlug);
   
   console.log("data",data)
+
+  if(!data) {
+    return notFound()
+  }
 
 // const groups =
 //   data?.map((group) => ({

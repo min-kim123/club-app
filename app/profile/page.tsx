@@ -12,7 +12,7 @@ export default async function Page() {
 
   //get the user's profile table from session.user.id
   const { data: userProfile } = await supabase
-    .from("profiles")
+    .from("users")
     .select("*") // selects all columns, adjust if needed
     .eq("id", session!.user.id)
     .single(); // filters rows where the user_id column matches the userId

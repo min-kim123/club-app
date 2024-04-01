@@ -3,6 +3,7 @@ import GroupSectionCard from "@/components/group-page/GroupSectionCard";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 interface PageProps {
   params: {
@@ -17,10 +18,14 @@ export default async function Page({ params }: PageProps) {
 
   const { data: group } = await supabase
     .from("groups")
-    .select("*")
+    .select("*") 
     .eq("slug", params.groupSlug)
     .eq("university_slug", params.universitySlug)
     .single();
+
+  if (!group) {
+    return notFound()
+  }
 
   //fetch sections associated w group
   const { data: sectionData } = await supabase
@@ -36,7 +41,7 @@ export default async function Page({ params }: PageProps) {
         {sectionData?.map((section) => (
           <Link
             key={section.id}
-            href={`/${params.universitySlug}/groups/${params.groupSlug}/${sectionData[0].id}`}
+            href={`/${params.universitySlug}/groups/${params.groupSlug}/${section.slug}`}
           >
             <GroupSectionCard section={section} />
           </Link>

@@ -1,5 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { format } from "date-fns";
 import { cookies } from "next/headers";
+
 
 interface PageProps {
   params: {
@@ -24,11 +26,15 @@ export default async function Page({ params }: PageProps) {
   return (
     <div>
       {event.name}
-      <div>{event?.date}</div>
-      <div>{event?.time}</div>
-      <div>{event?.location}</div>
+      <div>Date: {format(event?.time, '	PPPP')}</div>
+      <div>Time: {format(event?.time, 'p')}</div>
+
+  
+
+      <div>Location: {event?.location}</div>
 
       <div>{event?.description}</div>
+      <div>Posted {format(event?.created_at, '	PPPP')}</div>
     </div>
   );
 }
