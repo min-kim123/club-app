@@ -14,13 +14,13 @@ export async function middleware(req: NextRequest) {
   const supabase = createMiddlewareClient({req,res});
   const { data: { session } } = await supabase.auth.getSession();
 
-  console.log(url.pathname)
+  console.log("url path: ",url.pathname)
   if (!session && url.pathname != '/login') {
     // Redirect to the login page
     return NextResponse.redirect(new URL('/login', req.url));
   }
   await supabase.auth.getSession();//refreshes session if expired
-  console.log(pathname)
+  console.log("url path2:",pathname)
 
   return res;//returns updated cookie w/ fresh session from supabase
 }

@@ -14,7 +14,7 @@ export default function NewGroupForm({ user }: { user: User }) {
     if (user) {
       const {data: groupData} = await supabase.from("groups").insert({name}).select().single();
       console.log("groupdata: " ,groupData)
-      console.log(groupData.id)
+      console.log("groupdata.id",groupData.id)
       // await supabase.from("groups_users").insert({group_id: groupData.id, user_id: user.id});
       const { error: joinTableError } = await supabase
       .from("groups_users")

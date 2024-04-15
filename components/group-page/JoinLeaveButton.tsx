@@ -5,19 +5,22 @@ import { useMutation } from "@tanstack/react-query";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
+interface JoinLeaveButtonProps {
+  groupSlug: string
+  universitySlug: string
+}
+
 export default function JoinLeaveButton(sectionId: string) {
   const supabase = createClientComponentClient<Database>({});
 
   const isMember = false;
+  //first fetch the section id and user id 
 
   const { mutate: subscribe, isLoading: isSubLoading } = useMutation({
     mutationFn: async () => {
-      const payload = {
-        sectionId,
-      };
-      const { data } = await supabase
-        .from("sections_users").insert([{sectionId: 'section_id', userId: 'user_id'}])
-
+      const { data: insertData, error: insertError } = await supabase
+        .from("sections_users")
+        .insert([{ section_id: "section_id", user_id: "user_id" }]);
 
       return data as string;
     },

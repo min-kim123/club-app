@@ -10,20 +10,21 @@ export default async function Page() {
     data: { session },
   } = await supabase.auth.getSession();
 
-  //get the user's profile table from session.user.id
   const { data: userProfile } = await supabase
     .from("users")
     .select("*") // selects all columns, adjust if needed
     .eq("id", session!.user.id)
     .single(); // filters rows where the user_id column matches the userId
 
-  //retrieve all the id's that correspodn to the session.user.id from groups_profiles
   const { data: groupsUsers } = await supabase
-    .from("groups_users")
+    .from("board_groups_users")
     .select("*") // selects all columns, adjust if needed
     .eq("user_id", session!.user.id); // filters rows where the user_id column matches the userId
 
   console.log("groupsUsers", groupsUsers);
+
+
+
 
   //retrieve all group data that correspond to the group ids
   let groupIds = null;
@@ -31,14 +32,14 @@ export default async function Page() {
   let groups = null;
   let groupid = null;
 
-  if (groupsUsers) {
+  if (groupsUsers) {//for each groupsUsers, fetch the group data
     groupIds = groupsUsers.map((gp) => gp.group_id);
     groupid = groupIds[0];
-    console.log(groupIds);
+    console.log("groupIds",groupIds);
     const response = await supabase
       .from("groups")
       .select("*")
-      .in("group_id", groupIds);
+      .eq("group_id", groupIds);
 
     if (response.error) {
       console.log("error");

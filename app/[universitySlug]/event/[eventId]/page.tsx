@@ -22,7 +22,7 @@ export default async function Page({ params }: PageProps) {
     .eq("id", params.eventId)
     .single();
 
-  console.log(event);
+  console.log("evemt:",event);
   return (
     <div>
       {event.name}

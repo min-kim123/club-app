@@ -51,7 +51,7 @@ export default async function Page({ params }: PageProps) {
       </div>
       <div className="text-s">{section.description}</div>
       {/*  */}
-      <JoinLeaveButton sectionId={section.id} />
+      {/* <JoinLeaveButton sectionId={section.id} /> */}
     </div>
   );
 }

@@ -32,7 +32,7 @@ export default async function NavBar() {
     schoolPath = userProfile?.school_slug;
     console.log("schoolpath", schoolPath);
   }
-  console.log(schoolPath);
+  console.log("schoolPath",schoolPath);
   //where to take user if they are not logged in?
   //
 

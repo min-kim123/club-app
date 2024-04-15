@@ -24,7 +24,7 @@ export default async function Page({ params }: PageProps) {
     .select("*")
     .eq("group_id", group.id);
 
-  console.log(events);
+  console.log("events",events);
 
   return (
     <div>

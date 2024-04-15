@@ -1,3 +1,4 @@
+import EventsFeed from "@/components/EventsFeed";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
@@ -26,6 +27,7 @@ export default async function Page({ params }: PageProps) {
         Events
       </div>
       <div>
+      <EventsFeed groups={data} />
         {eventsData ? (<div>{eventsData.map((event)=> (
 
           <div key={event.id}>{event.name}</div>
