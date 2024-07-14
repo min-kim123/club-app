@@ -9,10 +9,42 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      board_groups_users: {
+        Row: {
+          group_id: string
+          position: string
+          user_id: string
+        }
+        Insert: {
+          group_id: string
+          position: string
+          user_id: string
+        }
+        Update: {
+          group_id?: string
+          position?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "groups_profiles_groups_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "groups_profiles_profiles_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       events: {
         Row: {
           created_at: string
-          date: string
           description: string | null
           group_id: string
           id: string
@@ -20,21 +52,23 @@ export type Database = {
           name: string
           num_additional_hosts: number | null
           time: string
+          university_slug: string
+          updated_at: string
         }
         Insert: {
           created_at?: string
-          date: string
           description?: string | null
           group_id?: string
           id?: string
           location: string
           name: string
           num_additional_hosts?: number | null
-          time: string
+          time?: string
+          university_slug: string
+          updated_at?: string
         }
         Update: {
           created_at?: string
-          date?: string
           description?: string | null
           group_id?: string
           id?: string
@@ -42,8 +76,17 @@ export type Database = {
           name?: string
           num_additional_hosts?: number | null
           time?: string
+          university_slug?: string
+          updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "public_events_university_slug_fkey"
+            columns: ["university_slug"]
+            isOneToOne: false
+            referencedRelation: "universities"
+            referencedColumns: ["slug"]
+          },
           {
             foreignKeyName: "public_eventsm_group_id_fkey"
             columns: ["group_id"]
@@ -62,6 +105,7 @@ export type Database = {
           name: string
           slug: string | null
           university_slug: string
+          year_founded: number | null
         }
         Insert: {
           created_at?: string
@@ -71,6 +115,7 @@ export type Database = {
           name: string
           slug?: string | null
           university_slug: string
+          year_founded?: number | null
         }
         Update: {
           created_at?: string
@@ -80,6 +125,7 @@ export type Database = {
           name?: string
           slug?: string | null
           university_slug?: string
+          year_founded?: number | null
         }
         Relationships: [
           {
@@ -121,39 +167,6 @@ export type Database = {
           },
         ]
       }
-      groups_users: {
-        Row: {
-          group_id: string
-          position: string | null
-          user_id: string
-        }
-        Insert: {
-          group_id: string
-          position?: string | null
-          user_id: string
-        }
-        Update: {
-          group_id?: string
-          position?: string | null
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "groups_profiles_groups_id_fkey"
-            columns: ["group_id"]
-            isOneToOne: false
-            referencedRelation: "groups"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "groups_profiles_profiles_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       likes: {
         Row: {
           created_at: string
@@ -185,35 +198,142 @@ export type Database = {
             foreignKeyName: "public_likes_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "profiles"
+            referencedRelation: "users"
             referencedColumns: ["id"]
           },
         ]
       }
-      profiles: {
+      sections: {
+        Row: {
+          created_at: string
+          description: string | null
+          group_id: string
+          id: string
+          name: string
+          slug: string | null
+          time: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          group_id?: string
+          id?: string
+          name: string
+          slug?: string | null
+          time?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          group_id?: string
+          id?: string
+          name?: string
+          slug?: string | null
+          time?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_sections_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sections_users: {
+        Row: {
+          section_id: string
+          user_id: string
+        }
+        Insert: {
+          section_id: string
+          user_id: string
+        }
+        Update: {
+          section_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sections_users_sections_id_fkey"
+            columns: ["section_id"]
+            isOneToOne: false
+            referencedRelation: "sections"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sections_users_users_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      universities: {
+        Row: {
+          city: string
+          created_at: string
+          latitude: number
+          longitude: number
+          name: string
+          slug: string
+          state: string
+        }
+        Insert: {
+          city: string
+          created_at?: string
+          latitude: number
+          longitude: number
+          name: string
+          slug: string
+          state: string
+        }
+        Update: {
+          city?: string
+          created_at?: string
+          latitude?: number
+          longitude?: number
+          name?: string
+          slug?: string
+          state?: string
+        }
+        Relationships: []
+      }
+      users: {
         Row: {
           avatar_url: string | null
+          created_at: string
+          first_major: string | null
           grad_year: number | null
           id: string
-          major: string[] | null
           name: string
           school_slug: string | null
+          second_major: string | null
+          slug: string | null
         }
         Insert: {
           avatar_url?: string | null
+          created_at?: string
+          first_major?: string | null
           grad_year?: number | null
           id?: string
-          major?: string[] | null
           name: string
           school_slug?: string | null
+          second_major?: string | null
+          slug?: string | null
         }
         Update: {
           avatar_url?: string | null
+          created_at?: string
+          first_major?: string | null
           grad_year?: number | null
           id?: string
-          major?: string[] | null
           name?: string
           school_slug?: string | null
+          second_major?: string | null
+          slug?: string | null
         }
         Relationships: [
           {
@@ -232,73 +352,17 @@ export type Database = {
           },
         ]
       }
-      sections: {
-        Row: {
-          created_at: string
-          description: string | null
-          group_id: string
-          id: string
-          name: string
-          time: string | null
-        }
-        Insert: {
-          created_at?: string
-          description?: string | null
-          group_id?: string
-          id?: string
-          name: string
-          time?: string | null
-        }
-        Update: {
-          created_at?: string
-          description?: string | null
-          group_id?: string
-          id?: string
-          name?: string
-          time?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "public_sections_group_id_fkey"
-            columns: ["group_id"]
-            isOneToOne: false
-            referencedRelation: "groups"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      universities: {
-        Row: {
-          city: string
-          latitude: number
-          longitude: number
-          name: string
-          slug: string
-          state: string
-        }
-        Insert: {
-          city: string
-          latitude: number
-          longitude: number
-          name: string
-          slug: string
-          state: string
-        }
-        Update: {
-          city?: string
-          latitude?: number
-          longitude?: number
-          name?: string
-          slug?: string
-          state?: string
-        }
-        Relationships: []
-      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      create_slug_for_user: {
+        Args: {
+          username: string
+        }
+        Returns: string
+      }
       slugify: {
         Args: {
           value: string
